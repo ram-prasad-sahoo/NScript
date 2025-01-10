@@ -26,7 +26,7 @@ cd NScript
 ## Usage <br>
 Run the script:
    ```bash
-  ./nscript.sh
+  ./NScript.sh
 ```
 ## Example
 ```bash
