@@ -15,7 +15,7 @@ NScript is a powerful and easy-to-use tool for performing network scanning and e
 1. Clone the repository:
 
 ```bash
-https://github.com/ram-prasad-sahoo/NScript.git
+git clone https://github.com/ram-prasad-sahoo/NScript.git
 cd NScript
 ```
 2.Make the script executable:
