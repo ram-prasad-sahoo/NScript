@@ -54,3 +54,7 @@ Scan successful! Output stored in /home/user/NScript/scan_results.txt
 ```
 ## Contributing
 Feel free to contribute by submitting issues or pull requests. If you find any bugs or have feature suggestions, please open an issue.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Disclaimer
+This tool is for educational purposes only. Use it responsibly and with permission on networks you own or have authorization to test.
