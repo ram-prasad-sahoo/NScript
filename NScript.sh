@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Define colors
+
 RED="\033[0;31m"
 GREEN="\033[0;32m"
 YELLOW="\033[0;33m"
 BLUE="\033[0;34m"
 MAGENTA="\033[0;35m"
 CYAN="\033[0;36m"
-RESET="\033[0m"  # Reset color
+RESET="\033[0m"  
 
 echo -e "${CYAN}###########################################"
 echo -e "#                                         #"
@@ -37,7 +37,8 @@ echo -e "${GREEN}[1] TCP Scan${RESET}"
 echo -e "${GREEN}[2] SYN Scan${RESET}"
 echo -e "${GREEN}[3] FAST Scan${RESET}"
 echo -e "${GREEN}[4] No Ping Scan${RESET}"
-read -p "Choose an option (1/2/3/4): " No
+echo -e "${GREEN}[5] Aggressive Scan${RESET}"
+read -p "Choose an option (1/2/3/4/5): " No
 
 echo -e "${YELLOW}Installing Nmap if not already installed...${RESET}"
 sudo apt install -y nmap
@@ -77,6 +78,12 @@ noPingS() {
     pri
 }
 
+aggressiveS() {
+    echo -e "${YELLOW}Performing Aggressive Scan on $Ip...${RESET}"
+    sudo nmap -A $Ip > scan_results.txt
+    pri
+}
+
 if [ "$No" -eq "1" ]; then
     tcpS
 elif [ "$No" -eq "2" ]; then
@@ -85,17 +92,21 @@ elif [ "$No" -eq "3" ]; then
     fastS
 elif [ "$No" -eq "4" ]; then
     noPingS
+elif [ "$No" -eq "5" ]; then
+    aggressiveS
 else
-    echo -e "${RED}Invalid option. Please choose 1, 2, 3, or 4.${RESET}"
+    echo -e "${RED}Invalid option. Please choose 1, 2, 3, 4, or 5.${RESET}"
     exit 1
 fi
 
 enumerateport() {
-    echo -e "${CYAN}Extracting open ports from scan results...${RESET}"
-    openports=$(grep "open" scan_results.txt | cut -d '/' -f 1 | sort -u)
-    echo -e "${GREEN}Open Ports:${RESET}"
-    echo "$openports"
+    echo -e "${CYAN}Extracting open ports, services, and versions from scan results...${RESET}"
+    echo -e "${GREEN}Open Ports | Service | Version${RESET}"
+    echo -e "--------------------------------------------"
+    grep "open" scan_results.txt | awk '{printf "%s | %s | %s\n", $1, $3, $4}' | column -t -s '|'
 
+    openports=$(grep "open" scan_results.txt | cut -d '/' -f 1 | sort -u)
+    
     if [ -z "$openports" ]; then
         echo -e "${RED}No open ports found. Exiting.${RESET}"
         exit 1
