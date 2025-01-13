@@ -48,6 +48,7 @@ Choose an IP address for further scanning: 192.168.1.10
 [2] SYN Scan
 [3] FAST Scan
 [4] No Ping Scan
+[5] Aggressive Scan
 Choose an option (1/2/3/4): 1
 Performing TCP Scan on 192.168.1.10...
 Scan successful! Output stored in /home/user/NScript/scan_results.txt
